@@ -1,3 +1,10 @@
+--[[ SERVICES ]]
+local PlayersService = game:GetService('Players')
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ChatService = game:GetService("Chat")
+local TextService = game:GetService("TextService")
+--[[ END OF SERVICES ]]
+
 --[[ SCRIPT VARIABLES ]]
 local CHAT_BUBBLE_FONT = Enum.Font.SourceSans
 local CHAT_BUBBLE_FONT_SIZE = Enum.FontSize.Size24 -- if you change CHAT_BUBBLE_FONT_SIZE_INT please change this to match
@@ -477,3 +484,4 @@ function this:OnGameChatMessage(origin, message, color)
 	this.CharacterSortedMsg:Get(line.Origin).Fifo:PushBack(line)
 	this:CreateChatLineRender(origin, line, false, this.CharacterSortedMsg:Get(line.Origin).Fifo)
 end
+return this
