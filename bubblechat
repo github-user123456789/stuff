@@ -359,6 +359,39 @@ function this:SetBillboardGuiLOD(billboardGui, origin)
 	end
 end
 
+function this:CreateBubbleText(message)
+	local bubbleText = Instance.new("TextLabel")
+	bubbleText.Name = "BubbleText"
+	bubbleText.BackgroundTransparency = 1
+	bubbleText.Position = UDim2.new(0,CHAT_BUBBLE_WIDTH_PADDING/2,0,0)
+	bubbleText.Size = UDim2.new(1,-CHAT_BUBBLE_WIDTH_PADDING,1,0)
+	bubbleText.Font = CHAT_BUBBLE_FONT
+	if shouldClipInGameChat then
+		bubbleText.ClipsDescendants = true
+	end
+	bubbleText.TextWrapped = true
+	bubbleText.FontSize = CHAT_BUBBLE_FONT_SIZE
+	bubbleText.Text = message
+	bubbleText.Visible = false
+
+	return bubbleText
+end
+
+function this:CreateSmallTalkBubble(chatBubbleType)
+	local smallTalkBubble = this.ScalingChatBubbleWithTail[chatBubbleType]:Clone()
+	smallTalkBubble.Name = "SmallTalkBubble"
+	smallTalkBubble.AnchorPoint = Vector2.new(0, 0.5)
+	smallTalkBubble.Position = UDim2.new(0,0,0.5,0)
+	smallTalkBubble.Visible = false
+	local text = this:CreateBubbleText("...")
+	text.TextScaled = true
+	text.TextWrapped = false
+	text.Visible = true
+	text.Parent = smallTalkBubble
+
+	return smallTalkBubble
+end
+
 function this:UpdateChatLinesForOrigin(origin, currentBubbleYPos)
 	local bubbleQueue = this.CharacterSortedMsg:Get(origin).Fifo
 	local bubbleQueueSize = bubbleQueue:Size()
