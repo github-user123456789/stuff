@@ -676,6 +676,11 @@ local ChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
 local OnMessageDoneFiltering = ChatEvents:WaitForChild("OnMessageDoneFiltering")
 local OnNewMessage = ChatEvents:WaitForChild("OnNewMessage")
 
+owner.Chatted:connect(function(a)
+	this:OnPlayerChatMessage(owner, a, nil)
+end)
+
+--[[
 OnNewMessage.OnClientEvent:connect(function(messageData, channelName)
 	if not checkAllowedMessageType(messageData) then
 		return
@@ -711,3 +716,4 @@ OnMessageDoneFiltering.OnClientEvent:connect(function(messageData, channelName)
 
 	this:OnPlayerChatMessage(sender, messageData.Message, nil)
 end)
+]]
